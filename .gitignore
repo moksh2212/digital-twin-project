@@ -4,4 +4,4 @@ __pycache__/
 *.pyc
 *.tar
 *.gz
-.DS_Store
+.DS_Storedata/raw/
