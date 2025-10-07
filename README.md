@@ -1,11 +1,13 @@
-Absolutely, Moksh ✅ — here’s your **complete `README.md` file** as a single ready-to-save document.
+Perfect, Moksh 👏 — here’s your **final, polished `README.md`** — ready to use for your GitHub project.
 
-You can directly copy this into your project root and save as:
-📄 `README.md`
+This version includes:
+✅ Dataset link at the top
+✅ Complete setup instructions (clone → create venv → install deps → run replay)
+✅ Everything in clean Markdown with code blocks and emojis for clarity
 
 ---
 
-````markdown
+```markdown
 # 🏢 Digital Twin for Smart Building (Historical Replay System)
 
 This project builds a **Digital Twin** of a smart building by replaying historical IoT sensor data in real time.  
@@ -13,51 +15,128 @@ It reconstructs the building’s evolving state using **machine learning**, allo
 
 ---
 
+## 📦 Dataset
+
+The dataset used in this project comes from the **SMART Infrastructure Facility, University of Wollongong (Australia)**.
+
+🔗 **Download link:**  
+[Smart Building IoT Sensor Dataset 1gb raw dataset put it raw folder in data cant be uploaded in github due to hughe size]([https://researchdata.edu.au/smart-building-iot-sensor-data/557052](https://drive.google.com/file/d/1HvaTByQp1sqvPsJDSD9nyn5EmsUTwmW6/view?usp=share_link))  
+
+After downloading, store the cleaned version in:  
+```
+
+data/processed/building_replay
+
+````
+as a **Parquet (.parquet)** file.
+
+---
+
+## 🚀 How to Run the Project
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/moksh2212/digital-twin-project.git
+cd digital-twin-project
+````
+
+---
+
+### 2️⃣ Create and Activate a Virtual Environment
+
+**For macOS / Linux:**
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+**For Windows (PowerShell):**
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+---
+
+### 3️⃣ Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### 4️⃣ Run the Replay Engine
+
+```bash
+python -m src.replay.replay_engine
+```
+
+Or specify a time window:
+
+```python
+from src.replay.replay_engine import ReplayEngine
+
+replayer = ReplayEngine("../data/processed/building_replay", speed=1000)
+final_state = replayer.run("2019-02-09", "2019-02-10", log_every=1000)
+```
+
+---
+
 ## 🌍 Overview
 
-A **Digital Twin** is a virtual replica of a physical system — in this case, a smart building equipped with temperature, humidity, CO₂, light, and motion sensors.  
+A **Digital Twin** is a virtual replica of a physical system — in this case, a smart building equipped with temperature, humidity, CO₂, light, and motion sensors.
 This project reads historical sensor data, replays it in chronological order, and continuously updates an internal **representation model** of the building.
 
 The twin uses several ML models to:
-- Detect abnormal sensor behavior  
-- Assess sensor health  
-- Cluster rooms based on environmental patterns  
+
+* Detect abnormal sensor behavior
+* Assess sensor health
+* Cluster rooms based on environmental patterns
 
 ---
 
 ## 🧩 Architecture
 
 ### 1️⃣ Representation Model
+
 **File:** `src/representation/building_model.py`
 
-The **Building Representation Model** maintains the **current state of each room** in the twin.  
+The **Building Representation Model** maintains the **current state of each room** in the twin.
 Every incoming sensor event updates this state, storing:
-- Timestamp  
-- Latest sensor readings (`temp`, `humidity`, `co2`, `light`, `movement`, etc.)  
-- ML model results (`anomaly_flag`, `health_status`, `cluster_label`)  
+
+* Timestamp
+* Latest sensor readings (`temp`, `humidity`, `co2`, `light`, `movement`, etc.)
+* ML model results (`anomaly_flag`, `health_status`, `cluster_label`)
 
 This model acts as the *core memory* of the digital twin.
 
 ---
 
 ### 2️⃣ Historical Replay Model
+
 **File:** `src/replay/replay_engine.py`
 
 The **Replay Engine** replays historical data from a processed parquet dataset and feeds each event sequentially to the twin.
 
 **Main steps:**
-1. Load and sort dataset by timestamp.  
-2. Iterate through events between a start and end date.  
+
+1. Load and sort dataset by timestamp.
+2. Iterate through events between a start and end date.
 3. For each event:
-   - Update the Building model.
-   - Run all ML models on live features.
-   - Update the room’s digital twin state.
+
+   * Update the Building model.
+   * Run all ML models on live features.
+   * Update the room’s digital twin state.
 
 **Example:**
+
 ```python
 replayer = ReplayEngine("../data/processed/building_replay", speed=1000)
 final_state = replayer.run("2019-02-09", "2019-02-10", log_every=1000)
-````
+```
 
 * `speed` — controls replay rate (real-time or fast-forward).
 * `log_every` — prints periodic logs.
@@ -264,27 +343,6 @@ SMART Infrastructure Facility, University of Wollongong.
 
 ---
 
-## 🚀 Running the Replay
-
-```bash
-# 1. Activate your virtual environment
-source venv/bin/activate
-
-# 2. Run the replay
-python -m src.replay.replay_engine
-```
-
-Or directly in a notebook:
-
-```python
-from src.replay.replay_engine import ReplayEngine
-
-replayer = ReplayEngine("../data/processed/building_replay", speed=1000)
-final_state = replayer.run("2019-02-09", "2019-02-10", log_every=1000)
-```
-
----
-
 ## 📈 Future Improvements
 
 * Integrate **energy-aware analytics** for sustainability tracking.
@@ -292,18 +350,16 @@ final_state = replayer.run("2019-02-09", "2019-02-10", log_every=1000)
 * Explore **deep learning** for adaptive anomaly detection.
 * Extend to **multi-building or campus-scale twins**.
 
----
 
-````
 
 ---
 
-✅ **How to use:**  
-Save this whole block as your `README.md` file in the project root, then run:
+✅ **Next Step:**
+To publish:
 ```bash
 git add README.md
-git commit -m "Add complete project documentation"
+git commit -m "Add complete README with dataset link and setup instructions"
 git push origin main
 ````
 
-Would you like me to add a **Mermaid-based folder structure diagram** or **system architecture overview diagram** at the top (to make the README visually appealing for GitHub visitors)?
+Would you like me to also generate a **lightweight `requirements.txt`** file (only the key dependencies used — pandas, scikit-learn, numpy, etc.) to include with this README?
